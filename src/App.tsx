@@ -1,22 +1,24 @@
+import {Link, Route, Routes } from 'react-router-dom';
 import './App.css'
-import CharacterGallery from "./components/CharacterGallery.tsx";
-import {useState} from "react";
-import {characters} from "./Characters.ts";
+import Welcome from './pages/Welcome';
+import RandMGallery from './pages/RandMGallery';
 
 export default function App() {
-    const [searchText, setSearchText] = useState("");
-
-    const filteredCharacters = characters
-        .filter((character) => character.name.toLowerCase().includes(searchText.toLowerCase()));
 
     return (
         <>
-            <input type="text" onChange={(e) => setSearchText(e.target.value)} placeholder="Search for a character"/>
-            {
-                filteredCharacters.length > 0
-                    ? <CharacterGallery characters={filteredCharacters}/>
-                    : <p>No characters found</p>
-            }
+            <ul>
+                <li>
+                    <Link to={'/Welcome'}>Welcome</Link>
+                </li>
+                <li>
+                    <Link to={'/characters'}>Rick and Morty Characters</Link>
+                </li>
+            </ul>
+            <Routes>
+                <Route path={'/Welcome'} element={<Welcome/>}></Route>
+                <Route path={'/characters'} element={<RandMGallery/>}></Route>
+            </Routes>
         </>
     );
 }
